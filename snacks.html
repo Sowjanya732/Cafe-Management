@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snack Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://th.bing.com/th/id/OIP.bG2xTTzeFBFQYcRt4D_RQQHaE7?w=256&h=180&c=7&r=0&o=5&cb=11&dpr=1.5&pid=1.7");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            color: white; /* Set text color to white */
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 20px;
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+        }
+        h1 {
+            text-align: center;
+        }
+        .item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .price {
+            margin-left: auto;
+        }
+        .quantity {
+            width: 50px;
+            margin-left: 10px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Snack Items</h1>
+        <div class="item">
+            <input type="checkbox" id="item1" value="250">
+            <label for="item1">French Fries</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹250</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item2" value="200">
+            <label for="item2">Bag of Chips</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹200</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item3" value="260">
+            <label for="item3">Tacos</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹260</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item4" value="300">
+            <label for="item4">Pizza</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹300</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item5" value="200">
+            <label for="item5">Burger</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹200</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item6" value="300">
+            <label for="item6">Sandwich</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹300</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item7" value="250">
+            <label for="item7">Pasta</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹250</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item8" value="150">
+            <label for="item8">French Toast</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹150</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item9" value="330">
+            <label for="item9">Osmania Biscuits</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹330</span>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="item10" value="220">
+            <label for="item10">Sizzling Brownie</label>
+            <input type="number" class="quantity" min="0" value="0">
+            <span class="price">₹220</span>
+        </div>
+
+        <div class="btn-container">
+            <button onclick="goBack()">Back</button>
+            <button onclick="calculateTotal()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const quantities = document.querySelectorAll('.quantity');
+
+            checkboxes.forEach((checkbox, index) => {
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.value) * parseInt(quantities[index].value);
+                    localStorage.setItem('selectedSnacksItems', JSON.stringify([...(localStorage.getItem('selectedSnacksItems') ? JSON.parse(localStorage.getItem('selectedSnacksItems')) : []), checkbox.nextElementSibling.textContent]));
+                    localStorage.setItem('snacksQuantities', JSON.stringify([...(localStorage.getItem('snacksQuantities') ? JSON.parse(localStorage.getItem('snacksQuantities')) : []), quantities[index].value]));
+                    localStorage.setItem('snacksTotalCost', total);
+                }
+            });
+            console.log("Total:", total);
+            // Redirect to the next page or perform other actions with the total
+            // For now, let's log the total
+            window.location.href = 'summary.html';
+        }
+        
+    </script>
+</body>
+</html>

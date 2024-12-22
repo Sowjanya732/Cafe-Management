@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://th.bing.com/th/id/OIP.R-S44IkebE1X9S3N0wTstwHaEo?w=305&h=190&c=7&r=0&o=5&cb=11&dpr=1.5&pid=1.7');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            box-sizing: border-box;
+            width: 80%;
+            max-width: 400px;
+            margin: 50px auto;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        .heading {
+            color: white;
+            font-size: 24px;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .sub-heading {
+            color: white;
+            font-size: 18px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            color: white;
+            font-size: 16px;
+            text-align: left;
+        }
+        p {
+            color: white;
+            text-align: center;
+            font-size: 18px;
+        }
+        h1 {
+            text-align: center;
+            color: white; 
+        }
+        h2{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bill Request</h1>
+        <div class="heading">Coffee Items:</div>
+        <ul id="coffeeItems"></ul>
+        <p>Total Coffee Cost: <span id="coffeeTotal"></span></p>
+
+        <div class="heading">Snacks Items:</div>
+        <ul id="snacksItems"></ul>
+        <p>Total Snacks Cost: <span id="snacksTotal"></span></p>
+
+        <h2>Total Cost:</h2>
+        <p id="totalCost"></p>
+    </div>
+
+    <script>
+        // Retrieve selected coffee items and total cost from local storage
+        var selectedCoffeeItems = JSON.parse(localStorage.getItem('selectedCoffeeItems')) || [];
+        var coffeeTotalCost = parseFloat(localStorage.getItem('coffeeTotalCost')) || 0;
+
+        // Retrieve selected snacks items and total cost from local storage
+        var selectedSnacksItems = JSON.parse(localStorage.getItem('selectedSnacksItems')) || [];
+        var snacksQuantities = JSON.parse(localStorage.getItem('snacksQuantities')) || [];
+        var snacksTotalCost = parseFloat(localStorage.getItem('snacksTotalCost')) || 0;
+
+        // Display selected coffee items and total cost
+        var coffeeItemsList = document.getElementById('coffeeItems');
+        selectedCoffeeItems.forEach(function(item, index) {
+            var li = document.createElement('li');
+            var quantity = parseInt(JSON.parse(localStorage.getItem('quantities'))[index]);
+            li.textContent = item + ' - Quantity: ' + quantity;
+            coffeeItemsList.appendChild(li);
+        });
+        document.getElementById('coffeeTotal').textContent = '₹' + coffeeTotalCost.toFixed(2);
+
+        // Display selected snacks items and total cost
+        var snacksItemsList = document.getElementById('snacksItems');
+        selectedSnacksItems.forEach(function(item, index) {
+            var li = document.createElement('li');
+            var quantity = parseInt(snacksQuantities[index]);
+            li.textContent = item + ' - Quantity: ' + quantity;
+            snacksItemsList.appendChild(li);
+        });
+        document.getElementById('snacksTotal').textContent = '₹' + snacksTotalCost.toFixed(2);
+
+        // Calculate and display total cost
+        var totalCost = coffeeTotalCost + snacksTotalCost;
+        document.getElementById('totalCost').textContent = 'Total Cost: ₹' + totalCost.toFixed(2);
+
+        // Clear local storage for next data
+        localStorage.clear();
+    </script>
+</body>
+</html>

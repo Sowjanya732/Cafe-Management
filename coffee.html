@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('https://cdn.wallpapersafari.com/17/4/dT6yzk.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 40%; 
+            margin: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .coffee-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .coffee-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+        }
+
+        .price {
+            margin-left: 10px;
+            text-align: right;
+            flex: 1; 
+        }
+
+        .quantity {
+            width: 50px;
+            margin-left: 10px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Coffee Items</h1>
+        <div class="coffee-list">
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Latte" data-price="120.00"> Latte</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹120.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Cappuccino" data-price="100.00"> Cappuccino</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹100.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Espresso" data-price="80.00"> Espresso</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹80.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Mocha" data-price="150.00"> Mocha</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹150.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Americano" data-price="90.00"> Americano</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹90.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Macchiato" data-price="110.00"> Macchiato</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹110.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Iced Coffee" data-price="130.00"> Iced Coffee</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹130.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Flat White" data-price="140.00"> Flat White</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹140.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Affogato" data-price="200.00"> Affogato</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹200.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Irish Coffee" data-price="180.00"> Irish Coffee</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹180.00</span>
+            </div>
+            <div class="coffee-item">
+                <label><input type="checkbox" class="coffee" value="Turkish Coffee" data-price="170.00"> Turkish Coffee</label>
+                <input type="number" class="quantity" min="0" value="0">
+                <span class="price">₹170.00</span>
+            </div>
+            
+        </div>
+        <div class="btn-container">
+            <button onclick="goBack()">Back</button>
+            <button onclick="goNext()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function goNext() {
+            var selectedCoffeeItems = [];
+            var quantities = [];
+            var coffeeItemPrices = []; 
+            var totalCoffeeCost = 0;
+
+            // Get all selected coffee items and quantities, and calculate total cost
+            var checkboxes = document.getElementsByClassName('coffee');
+            var quantityInputs = document.getElementsByClassName('quantity');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedCoffeeItems.push(checkboxes[i].value);
+                    quantities.push(quantityInputs[i].value);
+                    coffeeItemPrices.push(checkboxes[i].getAttribute('data-price')); 
+                    totalCoffeeCost += parseFloat(checkboxes[i].getAttribute('data-price')) * parseInt(quantityInputs[i].value);
+                }
+            }
+
+            // Store selected coffee items, quantities, and total cost in local storage
+            localStorage.setItem('selectedCoffeeItems', JSON.stringify(selectedCoffeeItems));
+            localStorage.setItem('quantities', JSON.stringify(quantities));
+            localStorage.setItem('coffeeItemPrices', JSON.stringify(coffeeItemPrices)); 
+            localStorage.setItem('coffeeTotalCost', totalCoffeeCost.toFixed(2));
+
+            // Redirect to snacks.html
+            window.location.href = 'snacks.html';
+        }
+    </script>
+</body>
+</html>
